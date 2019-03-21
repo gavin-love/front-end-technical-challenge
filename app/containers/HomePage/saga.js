@@ -10,7 +10,7 @@ import {
 } from 'containers/App/constants';
 import {
   reposLoaded,
-  reposLoadingError,
+  repoLoadingError,
   profileLoaded,
   profileLoadingError,
   followersLoaded,
@@ -33,7 +33,7 @@ export function* getRepos() {
     const repos = yield call(request, requestURL);
     yield put(reposLoaded(repos, username));
   } catch (err) {
-    yield put(reposLoadingError(err));
+    yield put(repoLoadingError(err));
   }
 }
 

@@ -26,7 +26,7 @@ const Instructions = () => (
         username. When I enter a username and hit enter, add a link to a user
         detail page above the list of repos that returns as a search result.
         This link would take the person to a new page that provides the
-        following information: the user's name, avatar image, a link to their
+        following information: the user/s name, avatar image, a link to their
         github profile, when they joined the system, and a list of their
         followers.
       </em>

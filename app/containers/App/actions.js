@@ -89,7 +89,7 @@ export function followersLoaded(followers) {
  *
  * @return {object}       An action object with a type of LOAD_REPOS_ERROR passing the error
  */
-export function reposLoadingError(error) {
+export function repoLoadingError(error) {
   return {
     type: LOAD_REPOS_ERROR,
     error,
