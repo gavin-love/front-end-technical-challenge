@@ -51,7 +51,7 @@ function appReducer(state = initialState, action) {
       return state
         .set('loading', true)
         .set('error', false)
-        .setIn(['userPofile', 'profile'], false);
+        .setIn(['userProfile', 'profile'], false);
     case LOAD_PROFILE_SUCCESS:
       return state
         .setIn(['userProfile', 'profile'], action.profile)
