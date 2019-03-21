@@ -25,13 +25,13 @@ import saga from '../HomePage/saga';
 export class UserProfile extends React.PureComponent {
   render() {
     const { loading, error, followers, profile } = this.props;
-    console.log(profile);
     const followersListProps = {
       loading,
       error,
       followers,
+      profile,
     };
-    console.log(followersListProps);
+    console.log(followersListProps, 'flp');
 
     return (
       <article>
@@ -53,7 +53,7 @@ export class UserProfile extends React.PureComponent {
 UserProfile.propTypes = {
   loading: PropTypes.bool,
   error: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
-  profile: PropTypes.oneOfType([PropTypes.array, PropTypes.bool]),
+  profile: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
   followers: PropTypes.oneOfType([PropTypes.array, PropTypes.bool]),
 };
 

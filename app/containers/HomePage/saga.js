@@ -55,7 +55,6 @@ export function* getFollowers() {
 
   try {
     const followers = yield call(request, requestURL);
-    console.log(followers);
     yield put(followersLoaded(followers));
   } catch (err) {
     yield put(followersLoadingError(err));
