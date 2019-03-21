@@ -16,6 +16,7 @@ import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
 import {
   makeSelectRepos,
+  makeSelectProfile,
   makeSelectLoading,
   makeSelectError,
 } from 'containers/App/selectors';
@@ -27,7 +28,7 @@ import Form from './Form';
 import Input from './Input';
 import Section from './Section';
 import messages from './messages';
-import { loadRepos } from '../App/actions';
+import { loadRepos, loadProfile } from '../App/actions';
 import { changeUsername } from './actions';
 import { makeSelectUsername } from './selectors';
 import reducer from './reducer';
@@ -108,6 +109,7 @@ export function mapDispatchToProps(dispatch) {
     onChangeUsername: evt => dispatch(changeUsername(evt.target.value)),
     onSubmitForm: evt => {
       if (evt !== undefined && evt.preventDefault) evt.preventDefault();
+      dispatch(loadProfile());
       dispatch(loadRepos());
     },
   };
@@ -115,6 +117,7 @@ export function mapDispatchToProps(dispatch) {
 
 const mapStateToProps = createStructuredSelector({
   repos: makeSelectRepos(),
+  profile: makeSelectProfile(),
   username: makeSelectUsername(),
   loading: makeSelectLoading(),
   error: makeSelectError(),

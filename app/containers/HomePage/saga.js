@@ -3,8 +3,13 @@
  */
 
 import { call, put, select, takeLatest } from 'redux-saga/effects';
-import { LOAD_REPOS } from 'containers/App/constants';
-import { reposLoaded, repoLoadingError } from 'containers/App/actions';
+import { LOAD_REPOS, LOAD_PROFILE } from 'containers/App/constants';
+import {
+  reposLoaded,
+  repoLoadingError,
+  profileLoaded,
+  profileLoadingError,
+} from 'containers/App/actions';
 
 import request from 'utils/request';
 import { makeSelectUsername } from 'containers/HomePage/selectors';
@@ -26,6 +31,18 @@ export function* getRepos() {
   }
 }
 
+export function* getProfile() {
+  const username = yield select(makeSelectUsername());
+  const requestURL = `https://api.github.com/users/${username}`;
+
+  try {
+    const profile = yield call(request, requestURL);
+    yield put(profileLoaded(profile, username));
+  } catch (err) {
+    yield put(profileLoadingError(err));
+  }
+}
+
 /**
  * Root saga manages watcher lifecycle
  */
@@ -35,4 +52,5 @@ export default function* githubData() {
   // It returns task descriptor (just like fork) so we can continue execution
   // It will be cancelled automatically on component unmount
   yield takeLatest(LOAD_REPOS, getRepos);
+  yield takeLatest(LOAD_PROFILE, getProfile);
 }

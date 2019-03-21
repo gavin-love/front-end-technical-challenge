@@ -22,6 +22,11 @@ const makeSelectRepos = () =>
     globalState.getIn(['userData', 'repositories']),
   );
 
+const makeSelectProfile = () =>
+  createSelector(selectGlobal, globalState =>
+    globalState.getIn(['userProfile', 'profile']),
+  );
+
 const makeSelectLocation = () =>
   createSelector(selectRouter, routerState =>
     routerState.get('location').toJS(),
@@ -33,5 +38,6 @@ export {
   makeSelectLoading,
   makeSelectError,
   makeSelectRepos,
+  makeSelectProfile,
   makeSelectLocation,
 };

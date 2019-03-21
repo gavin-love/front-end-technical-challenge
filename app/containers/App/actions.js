@@ -15,7 +15,14 @@
  *    }
  */
 
-import { LOAD_REPOS, LOAD_REPOS_SUCCESS, LOAD_REPOS_ERROR } from './constants';
+import {
+  LOAD_REPOS,
+  LOAD_REPOS_SUCCESS,
+  LOAD_REPOS_ERROR,
+  LOAD_PROFILE,
+  LOAD_PROFILE_SUCCESS,
+  LOAD_PROFILE_ERROR,
+} from './constants';
 
 /**
  * Load the repositories, this action starts the request saga
@@ -28,11 +35,18 @@ export function loadRepos() {
   };
 }
 
+export function loadProfile() {
+  return {
+    type: LOAD_PROFILE,
+  };
+}
+
 /**
  * Dispatched when the repositories are loaded by the request saga
  *
  * @param  {array} repos The repository data
  * @param  {string} username The current username
+ * @param  {object} profile The current user profile
  *
  * @return {object}      An action object with a type of LOAD_REPOS_SUCCESS passing the repos
  */
@@ -41,6 +55,15 @@ export function reposLoaded(repos, username) {
     type: LOAD_REPOS_SUCCESS,
     repos,
     username,
+  };
+}
+
+export function profileLoaded(profile) {
+  // eslint-disable-next-line no-console
+  console.log(profile);
+  return {
+    type: LOAD_PROFILE_SUCCESS,
+    profile,
   };
 }
 
@@ -54,6 +77,13 @@ export function reposLoaded(repos, username) {
 export function repoLoadingError(error) {
   return {
     type: LOAD_REPOS_ERROR,
+    error,
+  };
+}
+
+export function profileLoadingError(error) {
+  return {
+    type: LOAD_PROFILE_ERROR,
     error,
   };
 }
