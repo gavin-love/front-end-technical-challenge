@@ -7,7 +7,6 @@ import Wrapper from './Wrapper';
 function List(props) {
   const ComponentToRender = props.component;
   let content = <div />;
-
   // If we have items, render them
   if (props.items) {
     content = props.items.map(item => (

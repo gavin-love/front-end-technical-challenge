@@ -1,9 +1,3 @@
-/*
- * HomePage
- *
- * This is the first thing users see of our App, at the '/' route
- */
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
@@ -14,25 +8,22 @@ import injectSaga from 'utils/injectSaga';
 import {
   makeSelectProfile,
   makeSelectFollowers,
-  makeSelectLoading,
-  makeSelectError,
 } from 'containers/App/selectors';
-// import List from 'components/List';
 import Section from './Section';
+import P from './P';
+import Img from './Img';
+import Wrapper from './Wrapper';
+import LinkWrapper from './LinkWrapper';
 import saga from '../HomePage/saga';
+import FollowersList from '../../components/FollowersList';
 
 /* eslint-disable react/prefer-stateless-function */
 export class UserProfile extends React.PureComponent {
   render() {
-    const { loading, error, followers, profile } = this.props;
+    const { followers, profile } = this.props;
     const followersListProps = {
-      loading,
-      error,
       followers,
-      profile,
     };
-    console.log(followersListProps, 'flp');
-
     return (
       <article>
         <Helmet>
@@ -41,8 +32,17 @@ export class UserProfile extends React.PureComponent {
         </Helmet>
         <div>
           <Section>
-            {/* <a href="/userprofile">{profile.name}</a> */}
-            {/* <List items={profile} component={UserProfile} />; */}
+            <Wrapper>
+              <Img src={profile.avatar_url} alt="Profile Headshot" />
+              <P>{profile.login}</P>
+              <LinkWrapper>
+                <a href={profile.html_url} target="_blank">
+                  GitHub Profile
+                </a>
+              </LinkWrapper>
+              <P>Followers</P>
+              <FollowersList {...followersListProps} />
+            </Wrapper>
           </Section>
         </div>
       </article>
@@ -51,8 +51,6 @@ export class UserProfile extends React.PureComponent {
 }
 
 UserProfile.propTypes = {
-  loading: PropTypes.bool,
-  error: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
   profile: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
   followers: PropTypes.oneOfType([PropTypes.array, PropTypes.bool]),
 };
@@ -60,8 +58,6 @@ UserProfile.propTypes = {
 const mapStateToProps = createStructuredSelector({
   profile: makeSelectProfile(),
   followers: makeSelectFollowers(),
-  loading: makeSelectLoading(),
-  error: makeSelectError(),
 });
 
 const withConnect = connect(

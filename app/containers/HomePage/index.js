@@ -95,7 +95,7 @@ export class HomePage extends React.PureComponent {
                 this.props.history.push('/userprofile');
               }}
             >
-              {profile.login}
+              {profile.login || '@ mxstbr'}
             </Button>
             <ReposList {...reposListProps} />
           </Section>
