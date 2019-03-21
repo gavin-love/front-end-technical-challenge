@@ -17,13 +17,7 @@ describe('<FollowersListItem />', () => {
 
   beforeEach(() => {
     item = {
-      owner: {
-        login: 'mxstbr',
-      },
-      html_url: 'https://github.com/react-boilerplate/react-boilerplate',
-      name: 'react-boilerplate',
-      open_issues_count: 20,
-      full_name: 'react-boilerplate/react-boilerplate',
+      login: 'gavin',
     };
   });
 

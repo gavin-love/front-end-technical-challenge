@@ -1,13 +1,20 @@
-/**
- * Tests for HomePage sagas
- */
-
 import { put, takeLatest } from 'redux-saga/effects';
 
-import { LOAD_REPOS } from 'containers/App/constants';
-import { reposLoaded, repoLoadingError } from 'containers/App/actions';
+import {
+  LOAD_REPOS,
+  LOAD_PROFILE,
+  LOAD_FOLLOWERS,
+} from 'containers/App/constants';
+import {
+  reposLoaded,
+  repoLoadingError,
+  profileLoaded,
+  profileLoadingError,
+  followersLoaded,
+  followersLoadingError,
+} from 'containers/App/actions';
 
-import githubData, { getRepos } from '../saga';
+import githubData, { getRepos, getFollowers, getProfile } from '../saga';
 
 const username = 'mxstbr';
 
@@ -15,8 +22,6 @@ const username = 'mxstbr';
 describe('getRepos Saga', () => {
   let getReposGenerator;
 
-  // We have to test twice, once for a successful load and once for an unsuccessful one
-  // so we do all the stuff that happens beforehand automatically in the beforeEach
   beforeEach(() => {
     getReposGenerator = getRepos();
 
@@ -47,11 +52,78 @@ describe('getRepos Saga', () => {
   });
 });
 
+describe('getProfile Saga', () => {
+  let getProfileGenerator;
+
+  beforeEach(() => {
+    getProfileGenerator = getProfile();
+
+    const selectDescriptor = getProfileGenerator.next().value;
+    expect(selectDescriptor).toMatchSnapshot();
+
+    const callDescriptor = getProfileGenerator.next(username).value;
+    expect(callDescriptor).toMatchSnapshot();
+  });
+
+  it('should dispatch the profileLoaded action if it requests the data successfully', () => {
+    const response = [
+      {
+        profile: {},
+      },
+    ];
+    const putDescriptor = getProfileGenerator.next(response).value;
+    expect(putDescriptor).toEqual(put(profileLoaded(response)));
+  });
+
+  it('should call the profileLoadingError action if the response errors', () => {
+    const response = new Error('Some error');
+    const putDescriptor = getProfileGenerator.throw(response).value;
+    expect(putDescriptor).toEqual(put(profileLoadingError(response)));
+  });
+});
+
+describe('getFollowers Saga', () => {
+  let getFollowersGenerator;
+
+  beforeEach(() => {
+    getFollowersGenerator = getFollowers();
+
+    const selectDescriptor = getFollowersGenerator.next().value;
+    expect(selectDescriptor).toMatchSnapshot();
+
+    const callDescriptor = getFollowersGenerator.next(username).value;
+    expect(callDescriptor).toMatchSnapshot();
+  });
+
+  it('should dispatch the followersLoaded action if it requests the data successfully', () => {
+    const response = [
+      {
+        followers: {},
+      },
+    ];
+    const putDescriptor = getFollowersGenerator.next(response).value;
+    expect(putDescriptor).toEqual(put(followersLoaded(response)));
+  });
+
+  it('should call the followersLoadingError action if the response errors', () => {
+    const response = new Error('Some error');
+    const putDescriptor = getFollowersGenerator.throw(response).value;
+    expect(putDescriptor).toEqual(put(followersLoadingError(response)));
+  });
+});
+
 describe('githubDataSaga Saga', () => {
   const githubDataSaga = githubData();
 
   it('should start task to watch for LOAD_REPOS action', () => {
-    const takeLatestDescriptor = githubDataSaga.next().value;
-    expect(takeLatestDescriptor).toEqual(takeLatest(LOAD_REPOS, getRepos));
+    expect(githubDataSaga.next().value).toEqual(
+      takeLatest(LOAD_REPOS, getRepos),
+    );
+    expect(githubDataSaga.next().value).toEqual(
+      takeLatest(LOAD_PROFILE, getProfile),
+    );
+    expect(githubDataSaga.next().value).toEqual(
+      takeLatest(LOAD_FOLLOWERS, getFollowers),
+    );
   });
 });

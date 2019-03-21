@@ -6,6 +6,8 @@ import {
   makeSelectLoading,
   makeSelectError,
   makeSelectRepos,
+  makeSelectFollowers,
+  makeSelectProfile,
   makeSelectLocation,
 } from '../selectors';
 
@@ -70,6 +72,36 @@ describe('makeSelectRepos', () => {
       },
     });
     expect(reposSelector(mockedState)).toEqual(repositories);
+  });
+});
+
+describe('makeSelectFollowers', () => {
+  const reposSelector = makeSelectFollowers();
+  it('should select the repos', () => {
+    const followers = fromJS([]);
+    const mockedState = fromJS({
+      global: {
+        userFollowers: {
+          followers,
+        },
+      },
+    });
+    expect(reposSelector(mockedState)).toEqual(followers);
+  });
+});
+
+describe('makeSelectProfile', () => {
+  const reposSelector = makeSelectProfile();
+  it('should select the repos', () => {
+    const profile = fromJS([]);
+    const mockedState = fromJS({
+      global: {
+        userProfile: {
+          profile,
+        },
+      },
+    });
+    expect(reposSelector(mockedState)).toEqual(profile);
   });
 });
 

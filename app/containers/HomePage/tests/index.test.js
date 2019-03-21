@@ -9,7 +9,7 @@ import { IntlProvider } from 'react-intl';
 import ReposList from 'components/ReposList';
 import { HomePage, mapDispatchToProps } from '../index';
 import { changeUsername } from '../actions';
-import { loadRepos } from '../../App/actions';
+import { loadRepos, loadProfile, loadFollowers } from '../../App/actions';
 
 describe('<HomePage />', () => {
   it('should render the repos list', () => {
@@ -90,6 +90,20 @@ describe('<HomePage />', () => {
         const result = mapDispatchToProps(dispatch);
         result.onSubmitForm();
         expect(dispatch).toHaveBeenCalledWith(loadRepos());
+      });
+
+      it('should dispatch loadProfile when called', () => {
+        const dispatch = jest.fn();
+        const result = mapDispatchToProps(dispatch);
+        result.onSubmitForm();
+        expect(dispatch).toHaveBeenCalledWith(loadProfile());
+      });
+
+      it('should dispatch loadFollowers when called', () => {
+        const dispatch = jest.fn();
+        const result = mapDispatchToProps(dispatch);
+        result.onSubmitForm();
+        expect(dispatch).toHaveBeenCalledWith(loadFollowers());
       });
 
       it('should preventDefault if called with event', () => {
