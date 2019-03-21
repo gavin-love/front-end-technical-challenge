@@ -3,12 +3,18 @@
  */
 
 import { call, put, select, takeLatest } from 'redux-saga/effects';
-import { LOAD_REPOS, LOAD_PROFILE } from 'containers/App/constants';
+import {
+  LOAD_REPOS,
+  LOAD_PROFILE,
+  LOAD_FOLLOWERS,
+} from 'containers/App/constants';
 import {
   reposLoaded,
-  repoLoadingError,
+  reposLoadingError,
   profileLoaded,
   profileLoadingError,
+  followersLoaded,
+  followersLoadingError,
 } from 'containers/App/actions';
 
 import request from 'utils/request';
@@ -27,7 +33,7 @@ export function* getRepos() {
     const repos = yield call(request, requestURL);
     yield put(reposLoaded(repos, username));
   } catch (err) {
-    yield put(repoLoadingError(err));
+    yield put(reposLoadingError(err));
   }
 }
 
@@ -37,9 +43,22 @@ export function* getProfile() {
 
   try {
     const profile = yield call(request, requestURL);
-    yield put(profileLoaded(profile, username));
+    yield put(profileLoaded(profile));
   } catch (err) {
     yield put(profileLoadingError(err));
+  }
+}
+
+export function* getFollowers() {
+  const username = yield select(makeSelectUsername());
+  const requestURL = `https://api.github.com/users/${username}/followers`;
+
+  try {
+    const followers = yield call(request, requestURL);
+    console.log(followers);
+    yield put(followersLoaded(followers));
+  } catch (err) {
+    yield put(followersLoadingError(err));
   }
 }
 
@@ -53,4 +72,5 @@ export default function* githubData() {
   // It will be cancelled automatically on component unmount
   yield takeLatest(LOAD_REPOS, getRepos);
   yield takeLatest(LOAD_PROFILE, getProfile);
+  yield takeLatest(LOAD_FOLLOWERS, getFollowers);
 }

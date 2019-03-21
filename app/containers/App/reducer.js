@@ -18,6 +18,9 @@ import {
   LOAD_PROFILE_SUCCESS,
   LOAD_PROFILE,
   LOAD_PROFILE_ERROR,
+  LOAD_FOLLOWERS_SUCCESS,
+  LOAD_FOLLOWERS,
+  LOAD_FOLLOWERS_ERROR,
 } from './constants';
 
 // The initial state of the App
@@ -30,6 +33,9 @@ const initialState = fromJS({
   },
   userProfile: {
     profile: false,
+  },
+  userFollowers: {
+    followers: false,
   },
 });
 
@@ -55,9 +61,19 @@ function appReducer(state = initialState, action) {
     case LOAD_PROFILE_SUCCESS:
       return state
         .setIn(['userProfile', 'profile'], action.profile)
-        .set('loading', false)
-        .set('currentUser', action.username);
+        .set('loading', false);
     case LOAD_PROFILE_ERROR:
+      return state.set('error', action.error).set('loading', false);
+    case LOAD_FOLLOWERS:
+      return state
+        .set('loading', true)
+        .set('error', false)
+        .setIn(['userFollowers', 'followers'], false);
+    case LOAD_FOLLOWERS_SUCCESS:
+      return state
+        .setIn(['userFollowers', 'followers'], action.followers)
+        .set('loading', false);
+    case LOAD_FOLLOWERS_ERROR:
       return state.set('error', action.error).set('loading', false);
     default:
       return state;

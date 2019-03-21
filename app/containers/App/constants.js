@@ -15,3 +15,6 @@ export const LOAD_REPOS_ERROR = 'boilerplate/App/LOAD_REPOS_ERROR';
 export const LOAD_PROFILE = 'boilerplate/App/LOAD_PROFILE';
 export const LOAD_PROFILE_SUCCESS = 'boilerplate/App/LOAD_PROFILE_SUCCESS';
 export const LOAD_PROFILE_ERROR = 'boilerplate/App/LOAD_PROFILE_ERROR';
+export const LOAD_FOLLOWERS = 'boilerplate/App/LOAD_FOLLOWERS';
+export const LOAD_FOLLOWERS_SUCCESS = 'boilerplate/App/LOAD_FOLLOWERS_SUCCESS';
+export const LOAD_FOLLOWERS_ERROR = 'boilerplate/App/LOAD_FOLLOWERS_ERROR';

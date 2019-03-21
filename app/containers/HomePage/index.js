@@ -17,6 +17,7 @@ import injectSaga from 'utils/injectSaga';
 import {
   makeSelectRepos,
   makeSelectProfile,
+  makeSelectFollowers,
   makeSelectLoading,
   makeSelectError,
 } from 'containers/App/selectors';
@@ -28,7 +29,7 @@ import Form from './Form';
 import Input from './Input';
 import Section from './Section';
 import messages from './messages';
-import { loadRepos, loadProfile } from '../App/actions';
+import { loadRepos, loadProfile, loadFollowers } from '../App/actions';
 import { changeUsername } from './actions';
 import { makeSelectUsername } from './selectors';
 import reducer from './reducer';
@@ -46,7 +47,7 @@ export class HomePage extends React.PureComponent {
   }
 
   render() {
-    const { loading, error, repos } = this.props;
+    const { loading, error, repos, profile } = this.props;
     const reposListProps = {
       loading,
       error,
@@ -87,6 +88,7 @@ export class HomePage extends React.PureComponent {
                 />
               </label>
             </Form>
+            <a href="/userprofile">{profile.login}</a>
             <ReposList {...reposListProps} />
           </Section>
         </div>
@@ -111,6 +113,7 @@ export function mapDispatchToProps(dispatch) {
       if (evt !== undefined && evt.preventDefault) evt.preventDefault();
       dispatch(loadProfile());
       dispatch(loadRepos());
+      dispatch(loadFollowers());
     },
   };
 }
@@ -118,6 +121,7 @@ export function mapDispatchToProps(dispatch) {
 const mapStateToProps = createStructuredSelector({
   repos: makeSelectRepos(),
   profile: makeSelectProfile(),
+  followers: makeSelectFollowers(),
   username: makeSelectUsername(),
   loading: makeSelectLoading(),
   error: makeSelectError(),

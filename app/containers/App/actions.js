@@ -22,6 +22,9 @@ import {
   LOAD_PROFILE,
   LOAD_PROFILE_SUCCESS,
   LOAD_PROFILE_ERROR,
+  LOAD_FOLLOWERS,
+  LOAD_FOLLOWERS_SUCCESS,
+  LOAD_FOLLOWERS_ERROR,
 } from './constants';
 
 /**
@@ -41,10 +44,17 @@ export function loadProfile() {
   };
 }
 
+export function loadFollowers() {
+  return {
+    type: LOAD_FOLLOWERS,
+  };
+}
+
 /**
  * Dispatched when the repositories are loaded by the request saga
  *
  * @param  {array} repos The repository data
+ * @param  {array} followers The current user followers
  * @param  {string} username The current username
  * @param  {object} profile The current user profile
  *
@@ -59,11 +69,16 @@ export function reposLoaded(repos, username) {
 }
 
 export function profileLoaded(profile) {
-  // eslint-disable-next-line no-console
-  console.log(profile);
   return {
     type: LOAD_PROFILE_SUCCESS,
     profile,
+  };
+}
+
+export function followersLoaded(followers) {
+  return {
+    type: LOAD_FOLLOWERS_SUCCESS,
+    followers,
   };
 }
 
@@ -74,7 +89,7 @@ export function profileLoaded(profile) {
  *
  * @return {object}       An action object with a type of LOAD_REPOS_ERROR passing the error
  */
-export function repoLoadingError(error) {
+export function reposLoadingError(error) {
   return {
     type: LOAD_REPOS_ERROR,
     error,
@@ -84,6 +99,13 @@ export function repoLoadingError(error) {
 export function profileLoadingError(error) {
   return {
     type: LOAD_PROFILE_ERROR,
+    error,
+  };
+}
+
+export function followersLoadingError(error) {
+  return {
+    type: LOAD_FOLLOWERS_ERROR,
     error,
   };
 }
