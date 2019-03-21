@@ -23,6 +23,7 @@ import {
 } from 'containers/App/selectors';
 import H2 from 'components/H2';
 import ReposList from 'components/ReposList';
+import Button from 'components/Button';
 import AtPrefix from './AtPrefix';
 import CenteredSection from './CenteredSection';
 import Form from './Form';
@@ -88,7 +89,14 @@ export class HomePage extends React.PureComponent {
                 />
               </label>
             </Form>
-            <a href="/userprofile">{profile.login}</a>
+            <Button
+              onClick={e => {
+                e.preventDefault();
+                this.props.history.push('/userprofile');
+              }}
+            >
+              {profile.login}
+            </Button>
             <ReposList {...reposListProps} />
           </Section>
         </div>

@@ -11,7 +11,7 @@ import { Helmet } from 'react-helmet';
 import styled from 'styled-components';
 import { Switch, Route } from 'react-router-dom';
 
-// import UserProfile from 'containers/UserProfile/Loadable';
+import UserProfile from 'containers/UserProfile/Loadable';
 import HomePage from 'containers/HomePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import Header from 'components/Header';
@@ -42,7 +42,7 @@ export default function App() {
       <Switch>
         <Route exact path="/" component={HomePage} />
         <Route exact path="/instructions" component={Instructions} />
-        {/* <Route exact path="/userprofile" component={UserProfile} /> */}
+        <Route exact path="/userprofile" component={UserProfile} />
         <Route path="" component={NotFoundPage} />
       </Switch>
       <Footer />
