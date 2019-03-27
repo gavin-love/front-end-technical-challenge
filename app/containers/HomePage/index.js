@@ -21,14 +21,18 @@ import {
   makeSelectLoading,
   makeSelectError,
 } from 'containers/App/selectors';
-import H2 from 'components/H2';
+// import H2 from 'components/H2';
 import ReposList from 'components/ReposList';
 import Button from 'components/Button';
 import AtPrefix from './AtPrefix';
 import CenteredSection from './CenteredSection';
 import Form from './Form';
 import Input from './Input';
-import Section from './Section';
+import Img from './Img';
+import BcFront from '../../images/bc-front.png';
+import BcBack from '../../images/bc-back.png';
+// import Section from './Section';
+import HomePageWrapper from './HomePageWrapper';
 import messages from './messages';
 import { loadRepos, loadProfile, loadFollowers } from '../App/actions';
 import { changeUsername } from './actions';
@@ -56,24 +60,18 @@ export class HomePage extends React.PureComponent {
     };
 
     return (
-      <article>
+      <HomePageWrapper>
         <Helmet>
           <title>Home Page</title>
           <meta name="description" content="HCW Grabhub application homepage" />
         </Helmet>
         <div>
-          <CenteredSection>
-            <H2>
-              <FormattedMessage {...messages.startProjectHeader} />
-            </H2>
-            <p>
-              <FormattedMessage {...messages.startProjectMessage} />
-            </p>
+          <CenteredSection businessCard>
+            <Img src={BcBack} alt="Business Card Back" />
+            <Img src={BcFront} alt="Business Card Front" />
           </CenteredSection>
-          <Section>
-            <H2>
-              <FormattedMessage {...messages.trymeHeader} />
-            </H2>
+          <CenteredSection>
+            {/* // move profile button here. */}
             <Form onSubmit={this.props.onSubmitForm}>
               <label htmlFor="username">
                 <FormattedMessage {...messages.trymeMessage} />
@@ -98,9 +96,9 @@ export class HomePage extends React.PureComponent {
               {profile.login || '@ mxstbr'}
             </Button>
             <ReposList {...reposListProps} />
-          </Section>
+          </CenteredSection>
         </div>
-      </article>
+      </HomePageWrapper>
     );
   }
 }
