@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const AtPrefix = styled.span`
-  color: black;
+  color: white;
   margin-left: 0.4em;
 `;
 

@@ -10,7 +10,9 @@ import {
   makeSelectFollowers,
 } from 'containers/App/selectors';
 import Section from './Section';
+import Header from '../../components/Header';
 import P from './P';
+import A from './A';
 import Img from './Img';
 import Wrapper from './Wrapper';
 import LinkWrapper from './LinkWrapper';
@@ -30,15 +32,16 @@ export class UserProfile extends React.PureComponent {
           <title>Home Page</title>
           <meta name="description" content="HCW Grabhub application homepage" />
         </Helmet>
+        <Header profile />
         <div>
           <Section>
             <Wrapper>
               <Img src={profile.avatar_url} alt="Profile Headshot" />
               <P>{profile.login}</P>
               <LinkWrapper>
-                <a href={profile.html_url} target="_blank">
+                <A href={profile.html_url} target="_blank">
                   GitHub Profile
-                </a>
+                </A>
               </LinkWrapper>
               <P>Followers</P>
               <FollowersList {...followersListProps} />

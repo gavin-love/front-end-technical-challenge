@@ -28,6 +28,7 @@ import AtPrefix from './AtPrefix';
 import CenteredSection from './CenteredSection';
 import Form from './Form';
 import Input from './Input';
+import Header from '../../components/Header';
 import Img from './Img';
 import BcFront from '../../images/bc-front.png';
 import BcBack from '../../images/bc-back.png';
@@ -65,13 +66,13 @@ export class HomePage extends React.PureComponent {
           <title>Home Page</title>
           <meta name="description" content="HCW Grabhub application homepage" />
         </Helmet>
+        <Header />
         <div>
           <CenteredSection businessCard>
             <Img src={BcBack} alt="Business Card Back" />
             <Img src={BcFront} alt="Business Card Front" />
           </CenteredSection>
           <CenteredSection>
-            {/* // move profile button here. */}
             <Form onSubmit={this.props.onSubmitForm}>
               <label htmlFor="username">
                 <FormattedMessage {...messages.trymeMessage} />

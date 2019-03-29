@@ -3,7 +3,7 @@ import NormalA from 'components/A';
 
 const RepoLink = styled(NormalA)`
   height: 100%;
-  color: black;
+  color: white;
   display: flex;
   align-items: center;
   width: 100%;

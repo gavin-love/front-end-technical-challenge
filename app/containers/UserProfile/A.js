@@ -1,8 +1,7 @@
 import styled from 'styled-components';
 
-const P = styled.p`
-  text-align: center;
+const A = styled.a`
   color: white;
 `;
 
-export default P;
+export default A;

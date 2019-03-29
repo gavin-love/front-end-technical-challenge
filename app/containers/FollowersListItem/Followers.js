@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 const Followers = styled.p`
   height: 100%;
-  color: black;
+  color: white;
   display: flex;
   align-items: center;
   width: 100%;
